@@ -1,13 +1,13 @@
 package com.csc498g.newsfeed;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -25,6 +25,8 @@ public class LoginActivity extends AppCompatActivity {
 
         EditText loginEdit = findViewById(R.id.loginEdit);
         sp.edit().putString("username", loginEdit.getText().toString()).apply();
+        Intent i = new Intent(getApplicationContext(), NewsActivity.class);
+        startActivity(i);
 
     }
 }
