@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -41,8 +42,10 @@ public class NewsActivity extends AppCompatActivity {
 
         news = findViewById(R.id.newsView);
         newsContent = new ArrayList<>();
-        sql = SQLiteDatabase.openOrCreateDatabase("newsfeeddb",  null);
+        sql = this.openOrCreateDatabase("newsfeeddb", MODE_PRIVATE,  null);
         sql.execSQL("CREATE Table IF NOT EXISTS students (author VARCHAR, headline VARCHAR, description VARCHAR, published_at VARCHAR, location VARCHAR)");
+
+        Log.i("Database", retrieveDatabaseData().toString());
 
 
     }
@@ -54,19 +57,14 @@ public class NewsActivity extends AppCompatActivity {
 
     }
 
-    private void retrieveDatabaseData() {
+    private ArrayList<HashMap<String, String>> retrieveDatabaseData() {
 
         ArrayList<HashMap<String, String>> result = new ArrayList<>();
         Cursor c = sql.rawQuery("Select * from students", null);
-//        int author_id = c.getColumnIndex("headline");
-//        int headline_id = c.getColumnIndex("description");
-//        int description_id = c.getColumnIndex("description");
-//        int published_at_id = c.getColumnIndex("published_at");
-//        int location_id = c.getColumnIndex("location");
 
         c.moveToFirst();
 
-        while(c != null) {
+        while(!c.isAfterLast()) {
 
             HashMap<String, String> row = new HashMap<>();
             row.put(TABLE_COLUMNS.AUTHOR.label, c.getString(TABLE_COLUMNS.AUTHOR.index));
@@ -78,6 +76,7 @@ public class NewsActivity extends AppCompatActivity {
             result.add(row);
 
         }
+        return result;
 
     }
 }
