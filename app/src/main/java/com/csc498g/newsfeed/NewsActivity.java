@@ -2,6 +2,7 @@ package com.csc498g.newsfeed;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -23,7 +24,7 @@ public class NewsActivity extends AppCompatActivity {
         news = findViewById(R.id.newsView);
         newsContent = new ArrayList<>();
         sql = SQLiteDatabase.openOrCreateDatabase("newsfeeddb",  null);
-        sql.execSQL("CREATE Table IF NOT EXISTS students (headline VARCHAR, description VARCHAR, published_at DATE, location VARCHAR)");
+        sql.execSQL("CREATE Table IF NOT EXISTS students (author VARCHAR, headline VARCHAR, description VARCHAR, published_at DATE, location VARCHAR)");
 
 
     }
@@ -36,6 +37,15 @@ public class NewsActivity extends AppCompatActivity {
     }
 
     private void retrieveDatabaseData() {
+
+        Cursor c = sql.rawQuery("Select * from students", null);
+        int author_id = c.getColumnIndex("headline");
+        int headline_id = c.getColumnIndex("headline");
+        int description_id = c.getColumnIndex("headline");
+        int published_at_id = c.getColumnIndex("headline");
+        int location_id = c.getColumnIndex("headline");
+
+        c.moveToFirst();
 
     }
 }
