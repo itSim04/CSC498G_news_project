@@ -25,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
 
         EditText loginEdit = findViewById(R.id.loginEdit);
         sp.edit().putString("username", loginEdit.getText().toString()).apply();
+
         Intent i = new Intent(getApplicationContext(), NewsActivity.class);
         startActivity(i);
 
