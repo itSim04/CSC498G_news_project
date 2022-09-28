@@ -24,7 +24,7 @@ public class NewsActivity extends AppCompatActivity {
         news = findViewById(R.id.newsView);
         newsContent = new ArrayList<>();
         sql = SQLiteDatabase.openOrCreateDatabase("newsfeeddb",  null);
-        sql.execSQL("CREATE Table IF NOT EXISTS students (author VARCHAR, headline VARCHAR, description VARCHAR, published_at DATE, location VARCHAR)");
+        sql.execSQL("CREATE Table IF NOT EXISTS students (author VARCHAR, headline VARCHAR, description VARCHAR, published_at VARCHAR, location VARCHAR)");
 
 
     }
@@ -46,6 +46,17 @@ public class NewsActivity extends AppCompatActivity {
         int location_id = c.getColumnIndex("headline");
 
         c.moveToFirst();
+
+        while(c != null) {
+
+            String author = c.getString(author_id);
+            String headline = c.getString(headline_id);
+            String description = c.getString(description_id);
+            String published_at = c.getString(published_at_id);
+            String location = c.getString(location_id);
+            c.moveToNext();
+
+        }
 
     }
 }
