@@ -9,7 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class NewsActivity extends AppCompatActivity {
 
@@ -38,23 +40,26 @@ public class NewsActivity extends AppCompatActivity {
 
     private void retrieveDatabaseData() {
 
+        ArrayList<HashMap<String, String>> result = new ArrayList<>();
         Cursor c = sql.rawQuery("Select * from students", null);
         int author_id = c.getColumnIndex("headline");
-        int headline_id = c.getColumnIndex("headline");
-        int description_id = c.getColumnIndex("headline");
-        int published_at_id = c.getColumnIndex("headline");
-        int location_id = c.getColumnIndex("headline");
+        int headline_id = c.getColumnIndex("description");
+        int description_id = c.getColumnIndex("description");
+        int published_at_id = c.getColumnIndex("published_at");
+        int location_id = c.getColumnIndex("location");
 
         c.moveToFirst();
 
         while(c != null) {
 
-            String author = c.getString(author_id);
-            String headline = c.getString(headline_id);
-            String description = c.getString(description_id);
-            String published_at = c.getString(published_at_id);
-            String location = c.getString(location_id);
+            HashMap<String, String> row = new HashMap<>();
+            row.put("author", c.getString(author_id));
+            row.put("headline", c.getString(headline_id));
+            row.put("description", c.getString(description_id));
+            row.put("published_at", c.getString(published_at_id));
+            row.put("location", c.getString(location_id));
             c.moveToNext();
+            result.add(row);
 
         }
 
