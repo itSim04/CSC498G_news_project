@@ -13,11 +13,13 @@ import android.widget.ListView;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class NewsActivity extends AppCompatActivity {
 
     ListView news;
-    ArrayList<String> newsContent;
+    List<String> newsContent;
     SQLiteDatabase sql;
 
     enum TABLE_COLUMNS {
@@ -44,8 +46,8 @@ public class NewsActivity extends AppCompatActivity {
         newsContent = new ArrayList<>();
         sql = this.openOrCreateDatabase("newsfeeddb", MODE_PRIVATE,  null);
         sql.execSQL("CREATE Table IF NOT EXISTS news (author VARCHAR, headline VARCHAR, description VARCHAR, published_at VARCHAR, location VARCHAR)");
-        Log.i("Database", retrieveDatabaseData().toString());
-
+        newsContent = retrieveDatabaseData().stream().map(t -> t.get(TABLE_COLUMNS.AUTHOR.label)).collect(Collectors.toList());
+        populateListView();
 
     }
 
