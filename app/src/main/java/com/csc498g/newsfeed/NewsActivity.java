@@ -43,8 +43,7 @@ public class NewsActivity extends AppCompatActivity {
         news = findViewById(R.id.newsView);
         newsContent = new ArrayList<>();
         sql = this.openOrCreateDatabase("newsfeeddb", MODE_PRIVATE,  null);
-        sql.execSQL("CREATE Table IF NOT EXISTS students (author VARCHAR, headline VARCHAR, description VARCHAR, published_at VARCHAR, location VARCHAR)");
-
+        sql.execSQL("CREATE Table IF NOT EXISTS news (author VARCHAR, headline VARCHAR, description VARCHAR, published_at VARCHAR, location VARCHAR)");
         Log.i("Database", retrieveDatabaseData().toString());
 
 
@@ -60,7 +59,7 @@ public class NewsActivity extends AppCompatActivity {
     private ArrayList<HashMap<String, String>> retrieveDatabaseData() {
 
         ArrayList<HashMap<String, String>> result = new ArrayList<>();
-        Cursor c = sql.rawQuery("Select * from students", null);
+        Cursor c = sql.rawQuery("Select * from news", null);
 
         c.moveToFirst();
 
