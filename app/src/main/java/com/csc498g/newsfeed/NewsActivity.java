@@ -22,23 +22,8 @@ import java.util.stream.Collectors;
 public class NewsActivity extends AppCompatActivity {
 
     ListView news;
-    List<String> newsContent;
+    List<News> newsContent;
     SQLiteDatabase sql;
-
-    enum TABLE_COLUMNS {
-
-        AUTHOR("author", 0), HEADLINE("headline", 1), DESCRIPTION("description", 2), PUBLISHED_AT("published_at", 3), LOCATION("location", 4);
-
-        final String label;
-        final int index;
-
-        TABLE_COLUMNS(String label, int index) {
-            this.label = label;
-            this.index = index;
-        }
-
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,25 +31,31 @@ public class NewsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_news);
 
         news = findViewById(R.id.newsView);
+
         newsContent = new ArrayList<>();
         sql = this.openOrCreateDatabase("newsfeeddb", MODE_PRIVATE,  null);
         sql.execSQL("CREATE Table IF NOT EXISTS news (author VARCHAR, headline VARCHAR, description VARCHAR, published_at VARCHAR, location VARCHAR)");
-        newsContent = retrieveDatabaseData().stream().map(t -> t.getAuthor()).collect(Collectors.toList());
+        newsContent = retrieveDatabaseData();
         populateListView();
+        news.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), NewsDetailsActivity.class);
+                intent.putExtra(TABLE_COLUMNS.AUTHOR.label, newsContent.get(position).getAuthor());
+                intent.putExtra(TABLE_COLUMNS.DESCRIPTION.label, newsContent.get(position).getDescription());
+                intent.putExtra(TABLE_COLUMNS.HEADLINE.label, newsContent.get(position).getHeadline());
+                intent.putExtra(TABLE_COLUMNS.PUBLISHED_AT.label, newsContent.get(position).getPublished_at());
+                intent.putExtra(TABLE_COLUMNS.LOCATION.label, newsContent.get(position).getLocation());
+                startActivity(intent);
+            }
+        });
 
     }
 
     private void populateListView() {
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, newsContent);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, newsContent.stream().map(t -> t.getHeadline()).collect(Collectors.toList()));
         news.setAdapter(adapter);
-        news.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), NewsDetailsActivity.class);
-                intent.putExtra("news", newsContent.get(position));
-            }
-        });
 
     }
 
