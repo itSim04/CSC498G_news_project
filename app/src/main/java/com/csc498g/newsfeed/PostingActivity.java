@@ -1,5 +1,6 @@
 package com.csc498g.newsfeed;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -16,21 +17,24 @@ public class PostingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_posting);
-        news = retrieveData();
+
 
 
     }
 
     public void postNews(View view) {
 
+        news = retrieveData();
         sql = this.openOrCreateDatabase("newsfeeddb", MODE_PRIVATE, null);
-        sql.execSQL("INSERT INTO students(author, headline, description, published_at, location) VALUES (?, ?, ?, ?, ?)", new String[]{
+        sql.execSQL("INSERT INTO news(author, headline, description, published_at, location) VALUES (?, ?, ?, ?, ?)", new String[]{
                 news.getAuthor(),
                 news.getHeadline(),
                 news.getDescription(),
                 news.getPublished_at(),
                 news.getLocation()
         });
+        Intent intent = new Intent(getApplicationContext(), NewsActivity.class);
+        startActivity(intent);
 
     }
 

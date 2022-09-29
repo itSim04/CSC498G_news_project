@@ -26,7 +26,7 @@ public class NewsDetailsActivity extends AppCompatActivity {
 
         ((TextView)findViewById(R.id.headlingEdit)).setText(news.getHeadline());
         ((TextView)findViewById(R.id.descriptionEdit)).setText(news.getDescription());
-        ((TextView)findViewById(R.id.detailsText)).setText(String.format("In %s\nPublished By %s\nOn %s", news.getLocation(), news.getAuthor(), news.getLocation()));
+        ((TextView)findViewById(R.id.detailsText)).setText(String.format("In %s\nPublished By %s\nOn %s", news.getLocation(), news.getAuthor(), news.getPublished_at()));
 
     }
 }
