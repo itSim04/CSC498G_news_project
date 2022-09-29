@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -22,7 +23,15 @@ public class NewsDetailsActivity extends AppCompatActivity {
         news.setDescription(getIntent().getStringExtra(TABLE_COLUMNS.DESCRIPTION.label));
         news.setPublished_at(getIntent().getStringExtra(TABLE_COLUMNS.PUBLISHED_AT.label));
         news.setLocation(getIntent().getStringExtra(TABLE_COLUMNS.LOCATION.label));
-        Log.i("ROW", news.toString());
+        populateDisplay();
+
+    }
+
+    private void populateDisplay() {
+
+        ((TextView)findViewById(R.id.headlineText)).setText(news.getHeadline());
+        ((TextView)findViewById(R.id.descriptionText)).setText(news.getDescription());
+        ((TextView)findViewById(R.id.detailsText)).setText(String.format("In %s\nPublished By %s\nOn %s", news.getLocation(), news.getAuthor(), news.getLocation()));
 
     }
 }
