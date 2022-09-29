@@ -82,4 +82,11 @@ public class NewsActivity extends AppCompatActivity {
 
     }
 
+    public void postNews(View view) {
+
+        Intent intent = new Intent(getApplicationContext(), PostingActivity.class);
+        startActivity(intent);
+
+    }
+
 }
