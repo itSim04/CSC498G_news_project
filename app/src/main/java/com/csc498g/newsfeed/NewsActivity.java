@@ -2,6 +2,7 @@ package com.csc498g.newsfeed;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -60,7 +61,8 @@ public class NewsActivity extends AppCompatActivity {
         news.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("Clicked", newsContent.get(position));
+                Intent intent = new Intent(getApplicationContext(), NewsDetailsActivity.class);
+                intent.putExtra("news", newsContent.get(position));
             }
         });
 
