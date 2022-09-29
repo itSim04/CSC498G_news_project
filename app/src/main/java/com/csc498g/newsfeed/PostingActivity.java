@@ -1,12 +1,16 @@
 package com.csc498g.newsfeed;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class PostingActivity extends AppCompatActivity {
 
@@ -18,7 +22,9 @@ public class PostingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_posting);
 
-
+        String author_name = this.getSharedPreferences("com.csc498g.newsfeed", MODE_PRIVATE).getString("username", "Anonymous");
+        ((EditText)findViewById(R.id.authorEdit)).setText(author_name);
+        ((EditText)findViewById(R.id.dateEdit)).setText(new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime()));
 
     }
 
