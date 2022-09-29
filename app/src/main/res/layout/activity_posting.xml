@@ -6,12 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".NewsDetailsActivity">
 
-    <TextView
+    <EditText
         android:id="@+id/headlingEdit"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:hint="Headline"
-        android:text="Lorem Ipsum"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,11 +19,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.1" />
 
-    <TextView
+    <EditText
         android:id="@+id/descriptionEdit"
         android:layout_width="300dp"
         android:layout_height="150dp"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lectus odio, fringilla et pellentesque at, fringilla at justo. Integer odio mauris, lobortis id dignissim at, scelerisque non augue. Maecenas vel purus nec mauris sagittis tristique. Nunc neque lectus, interdum eu ex sit amet, cursus tristique quam. Nunc interdum nunc eget nibh feugiat hendrerit. Vivamus scelerisque suscipit est sit amet gravida."
+        android:gravity="bottom"
+        android:hint="Description"
+        android:textAlignment="viewStart"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,16 +34,58 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.23000002" />
 
-    <TextView
-        android:id="@+id/detailsText"
+
+    <EditText
+        android:id="@+id/authorEdit"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="In Location\nPublished by Author\nIn Published at"
+        android:hint="Author"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.65" />
+
+    <EditText
+        android:id="@+id/locationEdit"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="Location"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.75" />
+
+    <Button
+        android:id="@+id/postBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="postNews"
+        android:text="Post"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.13"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.95" />
+
+    <EditText
+        android:id="@+id/dateEdit"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Date"
+        android:inputType="date"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.85" />
 </androidx.constraintlayout.widget.ConstraintLayout>

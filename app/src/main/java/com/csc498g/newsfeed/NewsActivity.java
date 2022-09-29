@@ -81,4 +81,5 @@ public class NewsActivity extends AppCompatActivity {
         return result;
 
     }
+
 }
