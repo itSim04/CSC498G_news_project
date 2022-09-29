@@ -6,4 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".NewsDetailsActivity">
 
+    <TextView
+        android:id="@+id/headlineText"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="Headline"
+        android:text="Lorem Ipsum"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <TextView
+        android:id="@+id/descriptionText"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lectus odio, fringilla et pellentesque at, fringilla at justo. Integer odio mauris, lobortis id dignissim at, scelerisque non augue. Maecenas vel purus nec mauris sagittis tristique. Nunc neque lectus, interdum eu ex sit amet, cursus tristique quam. Nunc interdum nunc eget nibh feugiat hendrerit. Vivamus scelerisque suscipit est sit amet gravida."
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2" />
+
+    <TextView
+        android:id="@+id/details"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:text="In Location\nPublished by Author\nIn Published at"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.49" />
 </androidx.constraintlayout.widget.ConstraintLayout>
