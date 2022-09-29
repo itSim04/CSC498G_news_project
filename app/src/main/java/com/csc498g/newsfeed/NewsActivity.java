@@ -48,7 +48,7 @@ public class NewsActivity extends AppCompatActivity {
         newsContent = new ArrayList<>();
         sql = this.openOrCreateDatabase("newsfeeddb", MODE_PRIVATE,  null);
         sql.execSQL("CREATE Table IF NOT EXISTS news (author VARCHAR, headline VARCHAR, description VARCHAR, published_at VARCHAR, location VARCHAR)");
-        newsContent = retrieveDatabaseData().stream().map(t -> t.get(TABLE_COLUMNS.AUTHOR.label)).collect(Collectors.toList());
+        newsContent = retrieveDatabaseData().stream().map(t -> t.getAuthor()).collect(Collectors.toList());
         populateListView();
 
     }
@@ -66,23 +66,23 @@ public class NewsActivity extends AppCompatActivity {
 
     }
 
-    private ArrayList<HashMap<String, String>> retrieveDatabaseData() {
+    private ArrayList<News> retrieveDatabaseData() {
 
-        ArrayList<HashMap<String, String>> result = new ArrayList<>();
+        ArrayList<News> result = new ArrayList<>();
         Cursor c = sql.rawQuery("Select * from news", null);
 
         c.moveToFirst();
 
         while(!c.isAfterLast()) {
 
-            HashMap<String, String> row = new HashMap<>();
-            row.put(TABLE_COLUMNS.AUTHOR.label, c.getString(TABLE_COLUMNS.AUTHOR.index));
-            row.put(TABLE_COLUMNS.HEADLINE.label, c.getString(TABLE_COLUMNS.HEADLINE.index));
-            row.put(TABLE_COLUMNS.DESCRIPTION.label, c.getString(TABLE_COLUMNS.DESCRIPTION.index));
-            row.put(TABLE_COLUMNS.PUBLISHED_AT.label, c.getString(TABLE_COLUMNS.PUBLISHED_AT.index));
-            row.put(TABLE_COLUMNS.LOCATION.label, c.getString(TABLE_COLUMNS.LOCATION.index));
+            News news = new News();
+            news.setAuthor(c.getString(TABLE_COLUMNS.AUTHOR.index));
+            news.setHeadline(c.getString(TABLE_COLUMNS.HEADLINE.index));
+            news.setDescription(c.getString(TABLE_COLUMNS.DESCRIPTION.index));
+            news.setPublished_at(c.getString(TABLE_COLUMNS.PUBLISHED_AT.index));
+            news.setLocation(c.getString(TABLE_COLUMNS.LOCATION.index));
             c.moveToNext();
-            result.add(row);
+            result.add(news);
 
         }
         return result;
