@@ -7,11 +7,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -40,13 +42,19 @@ public class NewsActivity extends AppCompatActivity {
         news.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), NewsDetailsActivity.class);
-                intent.putExtra(TABLE_COLUMNS.AUTHOR.label, newsContent.get(position).getAuthor());
-                intent.putExtra(TABLE_COLUMNS.DESCRIPTION.label, newsContent.get(position).getDescription());
-                intent.putExtra(TABLE_COLUMNS.HEADLINE.label, newsContent.get(position).getHeadline());
-                intent.putExtra(TABLE_COLUMNS.PUBLISHED_AT.label, newsContent.get(position).getPublished_at());
-                intent.putExtra(TABLE_COLUMNS.LOCATION.label, newsContent.get(position).getLocation());
-                startActivity(intent);
+
+                PopupMenu popup = new PopupMenu(getApplicationContext(), view);
+                MenuInflater inflater = popup.getMenuInflater();
+                inflater.inflate(R.menu.menu_details, popup.getMenu());
+                popup.show();
+
+//                Intent intent = new Intent(getApplicationContext(), NewsDetailsActivity.class);
+//                intent.putExtra(TABLE_COLUMNS.AUTHOR.label, newsContent.get(position).getAuthor());
+//                intent.putExtra(TABLE_COLUMNS.DESCRIPTION.label, newsContent.get(position).getDescription());
+//                intent.putExtra(TABLE_COLUMNS.HEADLINE.label, newsContent.get(position).getHeadline());
+//                intent.putExtra(TABLE_COLUMNS.PUBLISHED_AT.label, newsContent.get(position).getPublished_at());
+//                intent.putExtra(TABLE_COLUMNS.LOCATION.label, newsContent.get(position).getLocation());
+//                startActivity(intent);
             }
         });
 
