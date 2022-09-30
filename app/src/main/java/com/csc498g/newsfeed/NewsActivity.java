@@ -6,77 +6,115 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class NewsActivity extends AppCompatActivity {
 
-    ListView news;
-    List<News> newsContent;
+    ListView news_view;
+    List<News> news_content;
     SQLiteDatabase sql;
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
-        news = findViewById(R.id.newsView);
 
-        newsContent = new ArrayList<>();
         sql = this.openOrCreateDatabase("newsfeeddb", MODE_PRIVATE,  null);
         sql.execSQL("CREATE Table IF NOT EXISTS news (author VARCHAR, headline VARCHAR, description VARCHAR, published_at VARCHAR, location VARCHAR)");
-        newsContent = retrieveDatabaseData();
-        populateListView();
-        news.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        username = this.getSharedPreferences("com.csc498g.newsfeed", MODE_PRIVATE).getString("username", "Anonymous");
+
+        news_content = retrieveDatabaseData();
+
+        news_view = findViewById(R.id.newsView);
+        news_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                News news = news_content.get(position);
 
+                if(news.getAuthor().equals(username)) {
+
+                    displayMenu(view, position);
+
+                } else {
+
+                    openDetails(position);
+
+                }
 
 
             }
         });
 
+        populateListView();
+
     }
 
-    private void displayMenu(View view) {
+    private void displayMenu(View view, int position) {
 
         PopupMenu popup = new PopupMenu(getApplicationContext(), view);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.viewDetailsItem:
+
+                        openDetails(position);
+                        return true;
+                    case R.id.editItem:
+
+                        editEntry();
+                        return true;
+                    case R.id.deleteItem:
+
+                        deleteEntry();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.menu_details, popup.getMenu());
         popup.show();
 
     }
 
+    private void deleteEntry() {
+    }
+
+    private void editEntry() {
+    }
+
     private void openDetails(int position) {
 
         Intent intent = new Intent(getApplicationContext(), NewsDetailsActivity.class);
-        intent.putExtra(TABLE_COLUMNS.AUTHOR.label, newsContent.get(position).getAuthor());
-        intent.putExtra(TABLE_COLUMNS.DESCRIPTION.label, newsContent.get(position).getDescription());
-        intent.putExtra(TABLE_COLUMNS.HEADLINE.label, newsContent.get(position).getHeadline());
-        intent.putExtra(TABLE_COLUMNS.PUBLISHED_AT.label, newsContent.get(position).getPublished_at());
-        intent.putExtra(TABLE_COLUMNS.LOCATION.label, newsContent.get(position).getLocation());
+        intent.putExtra(TABLE_COLUMNS.AUTHOR.label, news_content.get(position).getAuthor());
+        intent.putExtra(TABLE_COLUMNS.DESCRIPTION.label, news_content.get(position).getDescription());
+        intent.putExtra(TABLE_COLUMNS.HEADLINE.label, news_content.get(position).getHeadline());
+        intent.putExtra(TABLE_COLUMNS.PUBLISHED_AT.label, news_content.get(position).getPublished_at());
+        intent.putExtra(TABLE_COLUMNS.LOCATION.label, news_content.get(position).getLocation());
         startActivity(intent);
 
     }
 
     private void populateListView() {
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, newsContent.stream().map(t -> t.getHeadline()).collect(Collectors.toList()));
-
-        news.setAdapter(adapter);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, news_content.stream().map(t -> t.getHeadline()).collect(Collectors.toList()));
+        news_view.setAdapter(adapter);
 
     }
 
