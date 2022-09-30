@@ -23,7 +23,8 @@
     <TextView
         android:id="@+id/descriptionEdit"
         android:layout_width="300dp"
-        android:layout_height="150dp"
+        android:layout_height="300dp"
+        android:justificationMode="inter_word"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lectus odio, fringilla et pellentesque at, fringilla at justo. Integer odio mauris, lobortis id dignissim at, scelerisque non augue. Maecenas vel purus nec mauris sagittis tristique. Nunc neque lectus, interdum eu ex sit amet, cursus tristique quam. Nunc interdum nunc eget nibh feugiat hendrerit. Vivamus scelerisque suscipit est sit amet gravida."
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,7 +32,7 @@
         app:layout_constraintHorizontal_bias="0.38"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.23000002" />
+        app:layout_constraintVertical_bias="0.31" />
 
     <TextView
         android:id="@+id/detailsText"

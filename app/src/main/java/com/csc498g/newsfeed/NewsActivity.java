@@ -55,6 +55,7 @@ public class NewsActivity extends AppCompatActivity {
     private void populateListView() {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, newsContent.stream().map(t -> t.getHeadline()).collect(Collectors.toList()));
+
         news.setAdapter(adapter);
 
     }
