@@ -43,20 +43,32 @@ public class NewsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                PopupMenu popup = new PopupMenu(getApplicationContext(), view);
-                MenuInflater inflater = popup.getMenuInflater();
-                inflater.inflate(R.menu.menu_details, popup.getMenu());
-                popup.show();
 
-//                Intent intent = new Intent(getApplicationContext(), NewsDetailsActivity.class);
-//                intent.putExtra(TABLE_COLUMNS.AUTHOR.label, newsContent.get(position).getAuthor());
-//                intent.putExtra(TABLE_COLUMNS.DESCRIPTION.label, newsContent.get(position).getDescription());
-//                intent.putExtra(TABLE_COLUMNS.HEADLINE.label, newsContent.get(position).getHeadline());
-//                intent.putExtra(TABLE_COLUMNS.PUBLISHED_AT.label, newsContent.get(position).getPublished_at());
-//                intent.putExtra(TABLE_COLUMNS.LOCATION.label, newsContent.get(position).getLocation());
-//                startActivity(intent);
+
+
             }
         });
+
+    }
+
+    private void displayMenu(View view) {
+
+        PopupMenu popup = new PopupMenu(getApplicationContext(), view);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_details, popup.getMenu());
+        popup.show();
+
+    }
+
+    private void openDetails(int position) {
+
+        Intent intent = new Intent(getApplicationContext(), NewsDetailsActivity.class);
+        intent.putExtra(TABLE_COLUMNS.AUTHOR.label, newsContent.get(position).getAuthor());
+        intent.putExtra(TABLE_COLUMNS.DESCRIPTION.label, newsContent.get(position).getDescription());
+        intent.putExtra(TABLE_COLUMNS.HEADLINE.label, newsContent.get(position).getHeadline());
+        intent.putExtra(TABLE_COLUMNS.PUBLISHED_AT.label, newsContent.get(position).getPublished_at());
+        intent.putExtra(TABLE_COLUMNS.LOCATION.label, newsContent.get(position).getLocation());
+        startActivity(intent);
 
     }
 
