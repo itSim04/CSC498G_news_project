@@ -15,7 +15,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         sp = this.getSharedPreferences("com.csc498g.newsfeed", Context.MODE_PRIVATE);
 
