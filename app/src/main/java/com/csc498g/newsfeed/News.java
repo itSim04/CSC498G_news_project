@@ -5,6 +5,7 @@ public class News {
     private String headline;
     private String description;
     private String author;
+    private String owner;
     private String location;
     private String published_at;
 
@@ -12,8 +13,17 @@ public class News {
         this.headline = "";
         this.description = "";
         this.author = "";
+        this.owner = "";
         this.location = "";
         this.published_at = "";
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
     public String getHeadline() {

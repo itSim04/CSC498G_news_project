@@ -2,7 +2,7 @@ package com.csc498g.newsfeed;
 
 enum TABLE_COLUMNS {
 
-    AUTHOR("author", 0), HEADLINE("headline", 1), DESCRIPTION("description", 2), PUBLISHED_AT("published_at", 3), LOCATION("location", 4);
+    AUTHOR("author", 0), OWNER("owner", 1), HEADLINE("headline", 2), DESCRIPTION("description", 3), PUBLISHED_AT("published_at", 4), LOCATION("location", 5);
 
     final String label;
     final int index;

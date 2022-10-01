@@ -32,7 +32,7 @@ public class NewsActivity extends AppCompatActivity {
 
 
         sql = this.openOrCreateDatabase("newsfeeddb", MODE_PRIVATE,  null);
-        sql.execSQL("CREATE Table IF NOT EXISTS news (author VARCHAR, headline VARCHAR, description VARCHAR, published_at VARCHAR, location VARCHAR)");
+        sql.execSQL("CREATE Table IF NOT EXISTS news (author VARCHAR, owner VARCHAR, headline VARCHAR, description VARCHAR, published_at VARCHAR, location VARCHAR)");
 
         username = this.getSharedPreferences("com.csc498g.newsfeed", MODE_PRIVATE).getString("username", "Anonymous");
 
@@ -45,7 +45,7 @@ public class NewsActivity extends AppCompatActivity {
 
                 News news = news_content.get(position);
 
-                if(news.getAuthor().equals(username)) {
+                if(news.getOwner().equals(username)) {
 
                     displayMenu(view, position);
 
@@ -103,6 +103,7 @@ public class NewsActivity extends AppCompatActivity {
 
         Intent intent = new Intent(getApplicationContext(), NewsDetailsActivity.class);
         intent.putExtra(TABLE_COLUMNS.AUTHOR.label, news_content.get(position).getAuthor());
+        intent.putExtra(TABLE_COLUMNS.OWNER.label, news_content.get(position).getOwner());
         intent.putExtra(TABLE_COLUMNS.DESCRIPTION.label, news_content.get(position).getDescription());
         intent.putExtra(TABLE_COLUMNS.HEADLINE.label, news_content.get(position).getHeadline());
         intent.putExtra(TABLE_COLUMNS.PUBLISHED_AT.label, news_content.get(position).getPublished_at());
@@ -129,6 +130,7 @@ public class NewsActivity extends AppCompatActivity {
 
             News news = new News();
             news.setAuthor(c.getString(TABLE_COLUMNS.AUTHOR.index));
+            news.setOwner(c.getString(TABLE_COLUMNS.OWNER.index));
             news.setHeadline(c.getString(TABLE_COLUMNS.HEADLINE.index));
             news.setDescription(c.getString(TABLE_COLUMNS.DESCRIPTION.index));
             news.setPublished_at(c.getString(TABLE_COLUMNS.PUBLISHED_AT.index));
