@@ -77,15 +77,23 @@ public class NewsActivity extends AppCompatActivity {
                         intent = new Intent(getApplicationContext(), NewsDetailsActivity.class);
                         storeAndRunIntent(intent, position);
                         return true;
+
                     case R.id.editItem:
 
                         intent = new Intent(getApplicationContext(), UpdateActivity.class);
                         storeAndRunIntent(intent, position);
                         return true;
+
                     case R.id.deleteItem:
 
-                        deleteEntry();
+                        sql.execSQL("DELETE FROM news WHERE owner = ? AND headline = ?", new String[]{
+                                news_content.get(position).getOwner(),
+                                news_content.get(position).getHeadline()
+                        });
+                        news_content.remove(position);
+                        populateListView();
                         return true;
+
                     default:
                         return false;
                 }
@@ -97,8 +105,6 @@ public class NewsActivity extends AppCompatActivity {
 
     }
 
-    private void deleteEntry() {
-    }
 
     private void storeAndRunIntent(Intent intent, int position) {
 
