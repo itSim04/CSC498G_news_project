@@ -2,7 +2,10 @@ package com.csc498g.newsfeed;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 
 public class UpdateActivity extends AppCompatActivity {
@@ -23,6 +26,36 @@ public class UpdateActivity extends AppCompatActivity {
         news.setLocation(getIntent().getStringExtra(TABLE_COLUMNS.LOCATION.label));
 
         populateData();
+
+    }
+
+    public void updateNews(View view) {
+        News new_news = retrieveData();
+        SQLiteDatabase sql = this.openOrCreateDatabase("newsfeeddb", MODE_PRIVATE, null);
+        sql.execSQL("UPDATE news SET author = ?, owner = ?, headline = ?, description = ?, published_at = ?, location = ? WHERE owner = ? AND headline = ? ", new String[]{
+                new_news.getAuthor(),
+                new_news.getOwner(),
+                new_news.getHeadline(),
+                new_news.getDescription(),
+                new_news.getPublished_at(),
+                new_news.getLocation(),
+                news.getOwner(),
+                news.getHeadline()
+        });
+        Intent intent = new Intent(getApplicationContext(), NewsActivity.class);
+        startActivity(intent);
+    }
+
+    private News retrieveData() {
+
+        News new_news = new News();
+        new_news.setOwner(news.getOwner());
+        new_news.setAuthor(((EditText)findViewById(R.id.authorEdit)).getText().toString());
+        new_news.setHeadline(((EditText)findViewById(R.id.headlingEdit)).getText().toString());
+        new_news.setDescription(((EditText)findViewById(R.id.descriptionEdit)).getText().toString());
+        new_news.setPublished_at(((EditText)findViewById(R.id.dateEdit)).getText().toString());
+        new_news.setLocation(((EditText)findViewById(R.id.locationEdit)).getText().toString());
+        return new_news;
 
     }
 

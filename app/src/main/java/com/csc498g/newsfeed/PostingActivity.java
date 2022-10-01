@@ -48,14 +48,14 @@ public class PostingActivity extends AppCompatActivity {
 
     private News retrieveData() {
 
-        News news = new News();
-        news.setOwner(owner);
-        news.setAuthor(((EditText)findViewById(R.id.authorEdit)).getText().toString());
-        news.setHeadline(((EditText)findViewById(R.id.headlingEdit)).getText().toString());
-        news.setDescription(((EditText)findViewById(R.id.descriptionEdit)).getText().toString());
-        news.setPublished_at(((EditText)findViewById(R.id.dateEdit)).getText().toString());
-        news.setLocation(((EditText)findViewById(R.id.locationEdit)).getText().toString());
-        return news;
+        News new_news = new News();
+        new_news.setOwner(owner);
+        new_news.setAuthor(((EditText)findViewById(R.id.authorEdit)).getText().toString());
+        new_news.setHeadline(((EditText)findViewById(R.id.headlingEdit)).getText().toString());
+        new_news.setDescription(((EditText)findViewById(R.id.descriptionEdit)).getText().toString());
+        new_news.setPublished_at(((EditText)findViewById(R.id.dateEdit)).getText().toString());
+        new_news.setLocation(((EditText)findViewById(R.id.locationEdit)).getText().toString());
+        return new_news;
 
     }
 }
