@@ -51,7 +51,8 @@ public class NewsActivity extends AppCompatActivity {
 
                 } else {
 
-                    openDetails(position);
+                    Intent intent = new Intent(getApplicationContext(), NewsDetailsActivity.class);
+                    storeAndRunIntent(intent, position);
 
                 }
 
@@ -69,14 +70,17 @@ public class NewsActivity extends AppCompatActivity {
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+                Intent intent;
                 switch (item.getItemId()) {
                     case R.id.viewDetailsItem:
 
-                        openDetails(position);
+                        intent = new Intent(getApplicationContext(), NewsDetailsActivity.class);
+                        storeAndRunIntent(intent, position);
                         return true;
                     case R.id.editItem:
 
-                        editEntry();
+                        intent = new Intent(getApplicationContext(), UpdateActivity.class);
+                        storeAndRunIntent(intent, position);
                         return true;
                     case R.id.deleteItem:
 
@@ -96,12 +100,8 @@ public class NewsActivity extends AppCompatActivity {
     private void deleteEntry() {
     }
 
-    private void editEntry() {
-    }
+    private void storeAndRunIntent(Intent intent, int position) {
 
-    private void openDetails(int position) {
-
-        Intent intent = new Intent(getApplicationContext(), NewsDetailsActivity.class);
         intent.putExtra(TABLE_COLUMNS.AUTHOR.label, news_content.get(position).getAuthor());
         intent.putExtra(TABLE_COLUMNS.OWNER.label, news_content.get(position).getOwner());
         intent.putExtra(TABLE_COLUMNS.DESCRIPTION.label, news_content.get(position).getDescription());

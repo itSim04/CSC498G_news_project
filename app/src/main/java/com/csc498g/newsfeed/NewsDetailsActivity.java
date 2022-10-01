@@ -2,6 +2,7 @@ package com.csc498g.newsfeed;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.TargetApi;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ public class NewsDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_news_details);
         news = new News();
         news.setAuthor(getIntent().getStringExtra(TABLE_COLUMNS.AUTHOR.label));
+        news.setOwner(getIntent().getStringExtra(TABLE_COLUMNS.OWNER.label));
         news.setHeadline(getIntent().getStringExtra(TABLE_COLUMNS.HEADLINE.label));
         news.setDescription(getIntent().getStringExtra(TABLE_COLUMNS.DESCRIPTION.label));
         news.setPublished_at(getIntent().getStringExtra(TABLE_COLUMNS.PUBLISHED_AT.label));
