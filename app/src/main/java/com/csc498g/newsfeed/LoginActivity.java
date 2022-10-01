@@ -17,7 +17,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        sp = this.getSharedPreferences("com.csc498g.newsfeed", Context.MODE_PRIVATE);
+        sp = this.getSharedPreferences(Constants.PREFERENCES_NAME, Context.MODE_PRIVATE);
 
     }
 

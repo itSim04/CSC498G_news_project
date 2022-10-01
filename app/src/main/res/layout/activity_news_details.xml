@@ -7,11 +7,11 @@
     tools:context=".NewsDetailsActivity">
 
     <TextView
-        android:id="@+id/headlingEdit"
+        android:id="@+id/headingEdit"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:hint="Headline"
-        android:text="Lorem Ipsum"
+        android:textColorHint="#78909C"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,6 +24,7 @@
         android:id="@+id/descriptionEdit"
         android:layout_width="300dp"
         android:layout_height="300dp"
+        android:hint="Description"
         android:justificationMode="inter_word"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lectus odio, fringilla et pellentesque at, fringilla at justo. Integer odio mauris, lobortis id dignissim at, scelerisque non augue. Maecenas vel purus nec mauris sagittis tristique. Nunc neque lectus, interdum eu ex sit amet, cursus tristique quam. Nunc interdum nunc eget nibh feugiat hendrerit. Vivamus scelerisque suscipit est sit amet gravida."
         android:textSize="14sp"

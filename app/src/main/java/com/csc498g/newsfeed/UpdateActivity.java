@@ -25,13 +25,25 @@ public class UpdateActivity extends AppCompatActivity {
         news.setPublished_at(getIntent().getStringExtra(TABLE_COLUMNS.PUBLISHED_AT.label));
         news.setLocation(getIntent().getStringExtra(TABLE_COLUMNS.LOCATION.label));
 
-        populateData();
+        ((EditText)findViewById(R.id.authorEdit)).setText(news.getAuthor());
+        ((EditText)findViewById(R.id.headingEdit)).setText(news.getHeadline());
+        ((EditText)findViewById(R.id.descriptionEdit)).setText(news.getDescription());
+        ((EditText)findViewById(R.id.dateEdit)).setText(news.getPublished_at());
+        ((EditText)findViewById(R.id.locationEdit)).setText(news.getLocation());
 
     }
 
     public void updateNews(View view) {
-        News new_news = retrieveData();
-        SQLiteDatabase sql = this.openOrCreateDatabase("newsfeeddb", MODE_PRIVATE, null);
+
+        News new_news = new News();
+        new_news.setOwner(news.getOwner());
+        new_news.setAuthor(((EditText)findViewById(R.id.authorEdit)).getText().toString());
+        new_news.setHeadline(((EditText)findViewById(R.id.headingEdit)).getText().toString());
+        new_news.setDescription(((EditText)findViewById(R.id.descriptionEdit)).getText().toString());
+        new_news.setPublished_at(((EditText)findViewById(R.id.dateEdit)).getText().toString());
+        new_news.setLocation(((EditText)findViewById(R.id.locationEdit)).getText().toString());
+
+        SQLiteDatabase sql = this.openOrCreateDatabase(Constants.DATABASE_NAME, MODE_PRIVATE, null);
         sql.execSQL("UPDATE news SET author = ?, owner = ?, headline = ?, description = ?, published_at = ?, location = ? WHERE owner = ? AND headline = ? ", new String[]{
                 new_news.getAuthor(),
                 new_news.getOwner(),
@@ -44,29 +56,6 @@ public class UpdateActivity extends AppCompatActivity {
         });
         Intent intent = new Intent(getApplicationContext(), NewsActivity.class);
         startActivity(intent);
-    }
-
-    private News retrieveData() {
-
-        News new_news = new News();
-        new_news.setOwner(news.getOwner());
-        new_news.setAuthor(((EditText)findViewById(R.id.authorEdit)).getText().toString());
-        new_news.setHeadline(((EditText)findViewById(R.id.headlingEdit)).getText().toString());
-        new_news.setDescription(((EditText)findViewById(R.id.descriptionEdit)).getText().toString());
-        new_news.setPublished_at(((EditText)findViewById(R.id.dateEdit)).getText().toString());
-        new_news.setLocation(((EditText)findViewById(R.id.locationEdit)).getText().toString());
-        return new_news;
-
-    }
-
-    private void populateData() {
-
-        ((EditText)findViewById(R.id.authorEdit)).setText(news.getAuthor());
-        ((EditText)findViewById(R.id.headlingEdit)).setText(news.getHeadline());
-        ((EditText)findViewById(R.id.descriptionEdit)).setText(news.getDescription());
-        ((EditText)findViewById(R.id.dateEdit)).setText(news.getPublished_at());
-        ((EditText)findViewById(R.id.locationEdit)).setText(news.getLocation());
-
     }
 
 }

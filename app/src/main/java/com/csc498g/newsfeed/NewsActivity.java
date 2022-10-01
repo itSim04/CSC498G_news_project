@@ -1,18 +1,16 @@
 package com.csc498g.newsfeed;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,33 +28,30 @@ public class NewsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_news);
 
 
-        sql = this.openOrCreateDatabase("newsfeeddb", MODE_PRIVATE,  null);
+        sql = this.openOrCreateDatabase(Constants.DATABASE_NAME, MODE_PRIVATE,  null);
         sql.execSQL("CREATE Table IF NOT EXISTS news (author VARCHAR, owner VARCHAR, headline VARCHAR, description VARCHAR, published_at VARCHAR, location VARCHAR)");
 
-        String username = this.getSharedPreferences("com.csc498g.newsfeed", MODE_PRIVATE).getString("username", "Anonymous");
+        String username = this.getSharedPreferences(Constants.PREFERENCES_NAME, MODE_PRIVATE).getString("username", "Anonymous");
 
         news_content = retrieveDatabaseData();
 
         news_view = findViewById(R.id.newsView);
-        news_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        news_view.setOnItemClickListener((parent, view, position, id) -> {
 
-                News news = news_content.get(position);
+            News news = news_content.get(position);
 
-                if(news.getOwner().equals(username)) {
+            if(news.getOwner().equals(username)) {
 
-                    displayMenu(view, position);
+                displayMenu(view, position);
 
-                } else {
+            } else {
 
-                    Intent intent = new Intent(getApplicationContext(), NewsDetailsActivity.class);
-                    storeAndRunIntent(intent, position);
-
-                }
-
+                Intent intent = new Intent(getApplicationContext(), NewsDetailsActivity.class);
+                storeAndRunIntent(intent, position);
 
             }
+
+
         });
 
         populateListView();
@@ -66,37 +61,34 @@ public class NewsActivity extends AppCompatActivity {
     private void displayMenu(View view, int position) {
 
         PopupMenu popup = new PopupMenu(getApplicationContext(), view);
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                Intent intent;
-                switch (item.getItemId()) {
-                    case R.id.viewDetailsItem:
+        popup.setOnMenuItemClickListener(item -> {
+            Intent intent;
+                if(item.getItemId() == R.id.viewDetailsItem) {
 
-                        intent = new Intent(getApplicationContext(), NewsDetailsActivity.class);
-                        storeAndRunIntent(intent, position);
-                        return true;
+                    intent = new Intent(getApplicationContext(), NewsDetailsActivity.class);
+                    storeAndRunIntent(intent, position);
+                    return true;
 
-                    case R.id.editItem:
+                } else if(item.getItemId() == R.id.editItem) {
 
-                        intent = new Intent(getApplicationContext(), UpdateActivity.class);
-                        storeAndRunIntent(intent, position);
-                        return true;
+                    intent = new Intent(getApplicationContext(), UpdateActivity.class);
+                    storeAndRunIntent(intent, position);
+                    return true;
 
-                    case R.id.deleteItem:
+                } else if (item.getItemId() == R.id.deleteItem) {
 
-                        sql.execSQL("DELETE FROM news WHERE owner = ? AND headline = ?", new String[]{
-                                news_content.get(position).getOwner(),
-                                news_content.get(position).getHeadline()
-                        });
-                        news_content.remove(position);
-                        populateListView();
-                        return true;
+                    sql.execSQL("DELETE FROM news WHERE owner = ? AND headline = ?", new String[]{
+                            news_content.get(position).getOwner(),
+                            news_content.get(position).getHeadline()
+                    });
+                    news_content.remove(position);
+                    populateListView();
+                    return true;
 
-                    default:
-                        return false;
+                } else {
+                    return false;
+
                 }
-            }
         });
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.menu_details, popup.getMenu());
@@ -119,7 +111,7 @@ public class NewsActivity extends AppCompatActivity {
 
     private void populateListView() {
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, news_content.stream().map(t -> t.getHeadline()).collect(Collectors.toList()));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, news_content.stream().map(News::getHeadline).collect(Collectors.toList()));
         news_view.setAdapter(adapter);
 
     }
@@ -144,6 +136,8 @@ public class NewsActivity extends AppCompatActivity {
             result.add(news);
 
         }
+
+        c.close();
         return result;
 
     }

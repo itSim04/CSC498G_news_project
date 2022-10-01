@@ -66,14 +66,4 @@ public class News {
         this.published_at = published_at;
     }
 
-    @Override
-    public String toString() {
-        return "News{" +
-                "headline='" + headline + '\'' +
-                ", description='" + description + '\'' +
-                ", author='" + author + '\'' +
-                ", location='" + location + '\'' +
-                ", published_at='" + published_at + '\'' +
-                '}';
-    }
 }
