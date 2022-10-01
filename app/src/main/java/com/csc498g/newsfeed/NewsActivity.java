@@ -23,7 +23,6 @@ public class NewsActivity extends AppCompatActivity {
     ListView news_view;
     List<News> news_content;
     SQLiteDatabase sql;
-    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +33,7 @@ public class NewsActivity extends AppCompatActivity {
         sql = this.openOrCreateDatabase("newsfeeddb", MODE_PRIVATE,  null);
         sql.execSQL("CREATE Table IF NOT EXISTS news (author VARCHAR, owner VARCHAR, headline VARCHAR, description VARCHAR, published_at VARCHAR, location VARCHAR)");
 
-        username = this.getSharedPreferences("com.csc498g.newsfeed", MODE_PRIVATE).getString("username", "Anonymous");
+        String username = this.getSharedPreferences("com.csc498g.newsfeed", MODE_PRIVATE).getString("username", "Anonymous");
 
         news_content = retrieveDatabaseData();
 

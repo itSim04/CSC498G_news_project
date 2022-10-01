@@ -14,9 +14,7 @@ import java.util.Calendar;
 
 public class PostingActivity extends AppCompatActivity {
 
-    News news;
     String owner;
-    SQLiteDatabase sql;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +29,8 @@ public class PostingActivity extends AppCompatActivity {
 
     public void postNews(View view) {
 
-        news = retrieveData();
-        sql = this.openOrCreateDatabase("newsfeeddb", MODE_PRIVATE, null);
+        News news = retrieveData();
+        SQLiteDatabase sql = this.openOrCreateDatabase("newsfeeddb", MODE_PRIVATE, null);
         sql.execSQL("INSERT INTO news(author, owner, headline, description, published_at, location) VALUES (?, ?, ?, ?, ?, ?)", new String[]{
                 news.getAuthor(),
                 news.getOwner(),
