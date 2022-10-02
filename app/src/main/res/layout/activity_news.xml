@@ -5,6 +5,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_main"
     tools:context=".NewsActivity">
 
     <ListView
@@ -19,14 +20,20 @@
 
     <Button
         android:id="@+id/addBtn"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:background="#5CFFFFFF"
+        android:backgroundTint="#00FFFCFC"
+        android:fontFamily="@font/roboto_light"
         android:onClick="postNews"
         android:text="Post"
+        android:textAllCaps="false"
+        android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newsView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

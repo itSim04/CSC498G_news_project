@@ -4,42 +4,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_main"
     tools:context=".NewsDetailsActivity">
 
     <TextView
         android:id="@+id/headingEdit"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:background="#2DACACAC"
+        android:fontFamily="@font/roboto_light"
         android:hint="Headline"
+        android:textColor="#FFFFFF"
         android:textColorHint="#78909C"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintHorizontal_bias="0.378"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.1" />
 
-    <TextView
-        android:id="@+id/descriptionEdit"
+    <ScrollView
         android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:hint="Description"
-        android:justificationMode="inter_word"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lectus odio, fringilla et pellentesque at, fringilla at justo. Integer odio mauris, lobortis id dignissim at, scelerisque non augue. Maecenas vel purus nec mauris sagittis tristique. Nunc neque lectus, interdum eu ex sit amet, cursus tristique quam. Nunc interdum nunc eget nibh feugiat hendrerit. Vivamus scelerisque suscipit est sit amet gravida."
-        android:textSize="14sp"
+        android:layout_height="350dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintHorizontal_bias="0.39"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.31" />
+        app:layout_constraintTop_toBottomOf="@+id/headingEdit"
+        app:layout_constraintVertical_bias="0.100000024">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/descriptionEdit"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:background="#2DACACAC"
+                android:fontFamily="@font/roboto"
+                android:hint="Description"
+                android:justificationMode="inter_word"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lectus odio, fringilla et pellentesque at, fringilla at justo. Integer odio mauris, lobortis id dignissim at, scelerisque non augue. Maecenas vel purus nec mauris sagittis tristique. Nunc neque lectus, interdum eu ex sit amet, cursus tristique quam. Nunc interdum nunc eget nibh feugiat hendrerit. Vivamus scelerisque suscipit est sit amet gravida."
+                android:textColor="#DFD2D2"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </ScrollView>
 
     <TextView
         android:id="@+id/detailsText"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:background="#2DACACAC"
+        android:fontFamily="@font/roboto"
         android:text="In Location\nPublished by Author\nIn Published at"
+        android:textColor="#FDFDFD"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
