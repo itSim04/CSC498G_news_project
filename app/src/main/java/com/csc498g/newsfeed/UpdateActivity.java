@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
+
+import java.util.Objects;
 
 public class UpdateActivity extends AppCompatActivity {
 
@@ -16,6 +19,10 @@ public class UpdateActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_updating);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         news = new News();
         news.setAuthor(getIntent().getStringExtra(TABLE_COLUMNS.AUTHOR.label));
